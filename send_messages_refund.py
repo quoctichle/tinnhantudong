@@ -24,6 +24,7 @@ PASSWORD = get_env("FB_PASSWORD")
 START_ROW = 2
 CHROME_USER_DATA_DIR = get_chrome_user_data_dir()
 CHROME_PROFILE = get_chrome_profile()
+HEADLESS_MODE = get_env("HEADLESS", "").lower() in {"1", "true", "yes"} or os.name != "nt"
 SEND_BUTTON_XPATHS = [
     "//button[@aria-label='Send']",
     "//div[@aria-label='Send message']",
@@ -122,7 +123,12 @@ def build_driver(user_data_dir: str, profile: str = "Default") -> webdriver.Chro
         options.add_argument("--disable-popup-blocking")
         options.add_argument("--no-first-run")
         options.add_argument("--no-default-browser-check")
-        options.add_argument("--start-maximized")
+        if HEADLESS_MODE:
+            options.add_argument("--headless=new")
+            options.add_argument("--disable-gpu")
+            options.add_argument("--window-size=1920,1080")
+        else:
+            options.add_argument("--start-maximized")
         options.add_argument("--remote-debugging-port=0")
         options.add_experimental_option("excludeSwitches", ["enable-automation"])
         options.add_experimental_option("useAutomationExtension", False)
