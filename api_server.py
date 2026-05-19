@@ -10,6 +10,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 BASE_DIR = Path(__file__).resolve().parent
+JOB_TIMEOUT_SECONDS = int(os.getenv("JOB_TIMEOUT_SECONDS", "1200"))
 
 JOBS = {
     "exchange": BASE_DIR / "send_messages_bot.py",
@@ -64,11 +65,20 @@ def run_script(job_name: str) -> None:
             cwd=str(BASE_DIR),
             capture_output=True,
             text=True,
+            timeout=JOB_TIMEOUT_SECONDS,
         )
         output = (completed.stdout or "") + ("\n" + completed.stderr if completed.stderr else "")
         state["status"] = "succeeded" if completed.returncode == 0 else "failed"
         state["last_exit_code"] = completed.returncode
         state["last_output"] = output[-12000:]
+    except subprocess.TimeoutExpired as exc:
+        state["status"] = "failed"
+        state["last_exit_code"] = -2
+        state["last_output"] = (
+            f"TimeoutExpired: job exceeded {JOB_TIMEOUT_SECONDS} seconds. "
+            f"stdout={getattr(exc, 'stdout', '') or ''}\n"
+            f"stderr={getattr(exc, 'stderr', '') or ''}"
+        )[-12000:]
     except Exception as exc:
         state["status"] = "failed"
         state["last_exit_code"] = -1
