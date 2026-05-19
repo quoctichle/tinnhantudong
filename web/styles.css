@@ -1,0 +1,331 @@
+:root {
+  --bg: #f3efe6;
+  --paper: rgba(255, 251, 245, 0.84);
+  --ink: #1d1a17;
+  --muted: #5e564c;
+  --line: rgba(29, 26, 23, 0.1);
+  --blue: #0d5bd7;
+  --orange: #ea7b2c;
+  --green: #0d8b6f;
+  --red: #b83b3b;
+  --shadow: 0 20px 70px rgba(47, 33, 16, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Be Vietnam Pro", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(13, 91, 215, 0.12), transparent 26%),
+    radial-gradient(circle at 85% 15%, rgba(234, 123, 44, 0.16), transparent 22%),
+    linear-gradient(180deg, #f6f1e8 0%, #efe4d4 100%);
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  transition: transform 140ms ease, opacity 140ms ease, background-color 140ms ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+  transform: none;
+}
+
+.page-shell {
+  width: min(1180px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 32px 0 48px;
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 24px;
+  align-items: end;
+  margin-bottom: 24px;
+}
+
+.hero-copy h1 {
+  margin: 0;
+  font-size: clamp(2.2rem, 5vw, 4.8rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.eyebrow {
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.hero-text {
+  max-width: 760px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.hero-status,
+.config-panel,
+.job-card,
+.log-panel {
+  background: var(--paper);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: var(--shadow);
+}
+
+.hero-status {
+  justify-self: end;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 18px;
+  border-radius: 999px;
+}
+
+.status-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--orange);
+  box-shadow: 0 0 0 6px rgba(234, 123, 44, 0.18);
+}
+
+.status-dot.ok {
+  background: var(--green);
+  box-shadow: 0 0 0 6px rgba(13, 139, 111, 0.18);
+}
+
+.status-dot.error {
+  background: var(--red);
+  box-shadow: 0 0 0 6px rgba(184, 59, 59, 0.16);
+}
+
+.config-panel {
+  border-radius: 24px;
+  padding: 20px;
+  margin-bottom: 24px;
+}
+
+.config-panel label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.config-row {
+  display: flex;
+  gap: 12px;
+}
+
+.config-row input {
+  flex: 1;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.78);
+  padding: 14px 16px;
+}
+
+.hint {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.jobs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.job-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  padding: 24px;
+}
+
+.job-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -30px -30px auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+  filter: blur(4px);
+}
+
+.accent-exchange {
+  background: linear-gradient(180deg, rgba(13, 91, 215, 0.13), rgba(255, 251, 245, 0.84));
+}
+
+.accent-billing {
+  background: linear-gradient(180deg, rgba(234, 123, 44, 0.16), rgba(255, 251, 245, 0.84));
+}
+
+.accent-refund {
+  background: linear-gradient(180deg, rgba(13, 139, 111, 0.15), rgba(255, 251, 245, 0.84));
+}
+
+.job-topline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  background: rgba(29, 26, 23, 0.08);
+  font-weight: 800;
+  margin-bottom: 18px;
+}
+
+.job-card h2 {
+  margin: 0 0 12px;
+  font-size: 1.45rem;
+  line-height: 1.1;
+}
+
+.job-card p {
+  margin: 0 0 18px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.job-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.primary,
+.secondary,
+.ghost {
+  border-radius: 999px;
+  padding: 12px 16px;
+  font-weight: 700;
+}
+
+.primary {
+  background: var(--ink);
+  color: white;
+}
+
+.secondary {
+  background: var(--blue);
+  color: white;
+}
+
+.ghost {
+  background: rgba(29, 26, 23, 0.06);
+  color: var(--ink);
+}
+
+.job-meta {
+  margin: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.job-meta div {
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
+}
+
+.job-meta dt {
+  color: var(--muted);
+}
+
+.job-meta dd {
+  margin: 0;
+  text-align: right;
+  font-weight: 700;
+}
+
+.log-panel {
+  border-radius: 28px;
+  padding: 20px;
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.log-header h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+#logOutput {
+  margin: 0;
+  border-radius: 22px;
+  background: #1a1714;
+  color: #efe4d4;
+  min-height: 220px;
+  padding: 18px;
+  overflow: auto;
+  white-space: pre-wrap;
+  line-height: 1.5;
+}
+
+@media (max-width: 960px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-status {
+    justify-self: start;
+  }
+
+  .jobs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .page-shell {
+    width: min(100vw - 20px, 1180px);
+    padding-top: 20px;
+  }
+
+  .config-row,
+  .job-actions,
+  .log-header {
+    flex-direction: column;
+  }
+
+  .config-row input,
+  .primary,
+  .secondary,
+  .ghost {
+    width: 100%;
+  }
+}

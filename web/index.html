@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SunShine Message Control</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Cloudflare-ready frontend</p>
+          <h1>SunShine Message Control</h1>
+          <p class="hero-text">
+            Một giao diện điều khiển để chạy 3 luồng gửi tin nhắn: đơn đổi, cước và hoàn tiền.
+            Frontend này có thể đẩy lên Cloudflare Pages, còn backend Python sẽ gọi các script Selenium hiện tại.
+          </p>
+        </div>
+        <div class="hero-status" id="healthBadge">
+          <span class="status-dot"></span>
+          <span>Chưa kiểm tra kết nối API</span>
+        </div>
+      </header>
+
+      <section class="config-panel">
+        <label for="apiBaseUrl">API base URL</label>
+        <div class="config-row">
+          <input id="apiBaseUrl" type="text" placeholder="Ví dụ: https://api-your-app.onrender.com" />
+          <button id="saveConfigButton" class="secondary">Lưu</button>
+          <button id="checkHealthButton" class="ghost">Kiểm tra</button>
+        </div>
+        <p class="hint">
+          Nếu chạy local backend, nhập ví dụ: http://127.0.0.1:8000
+        </p>
+      </section>
+
+      <main class="jobs-grid" id="jobsGrid">
+        <article class="job-card accent-exchange" data-job="exchange">
+          <div class="job-topline">01</div>
+          <h2>Gửi thông báo đơn đổi</h2>
+          <p>Chạy file send_messages_bot.py để gửi thông báo đơn đổi.</p>
+          <div class="job-actions">
+            <button class="primary run-job-button">Chạy ngay</button>
+            <button class="ghost refresh-job-button">Làm mới</button>
+          </div>
+          <dl class="job-meta">
+            <div><dt>Trạng thái</dt><dd class="job-state">Chưa tải</dd></div>
+            <div><dt>Lần chạy cuối</dt><dd class="job-finished">-</dd></div>
+          </dl>
+        </article>
+
+        <article class="job-card accent-billing" data-job="billing">
+          <div class="job-topline">02</div>
+          <h2>Gửi thông báo cước</h2>
+          <p>Chạy file send_messages_cuoc.py để gửi thông báo cước kèm ảnh.</p>
+          <div class="job-actions">
+            <button class="primary run-job-button">Chạy ngay</button>
+            <button class="ghost refresh-job-button">Làm mới</button>
+          </div>
+          <dl class="job-meta">
+            <div><dt>Trạng thái</dt><dd class="job-state">Chưa tải</dd></div>
+            <div><dt>Lần chạy cuối</dt><dd class="job-finished">-</dd></div>
+          </dl>
+        </article>
+
+        <article class="job-card accent-refund" data-job="refund">
+          <div class="job-topline">03</div>
+          <h2>Gửi thông báo hoàn tiền</h2>
+          <p>Chạy file send_messages_refund.py để gửi thông báo hoàn tiền theo ngôn ngữ.</p>
+          <div class="job-actions">
+            <button class="primary run-job-button">Chạy ngay</button>
+            <button class="ghost refresh-job-button">Làm mới</button>
+          </div>
+          <dl class="job-meta">
+            <div><dt>Trạng thái</dt><dd class="job-state">Chưa tải</dd></div>
+            <div><dt>Lần chạy cuối</dt><dd class="job-finished">-</dd></div>
+          </dl>
+        </article>
+      </main>
+
+      <section class="log-panel">
+        <div class="log-header">
+          <h2>Log gần nhất</h2>
+          <button id="clearLogButton" class="ghost">Xóa log</button>
+        </div>
+        <pre id="logOutput">Sẵn sàng.</pre>
+      </section>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

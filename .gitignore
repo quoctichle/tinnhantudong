@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+chrome-profile/
+debug-artifacts/
+*.log
+.env
+local_settings.py
+*.tmp
+dondoi-492808-e0f43cf58b1e.json
