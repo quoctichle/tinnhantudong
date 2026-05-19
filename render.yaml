@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: tinnhan-api
+    env: python
+    region: singapore
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api_server:app --host 0.0.0.0 --port 8000
+    envVars:
+      - key: FB_EMAIL
+        value: ${FB_EMAIL}
+      - key: FB_PASSWORD
+        value: ${FB_PASSWORD}
+      - key: GOOGLE_SERVICE_ACCOUNT_FILE
+        value: ${GOOGLE_SERVICE_ACCOUNT_FILE}
+      - key: CHROME_USER_DATA_DIR
+        fromFile: /tmp/chrome-profile
+      - key: CHROME_PROFILE
+        value: Default
