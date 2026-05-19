@@ -115,8 +115,9 @@ def build_driver(user_data_dir: str, profile: str = "Default") -> webdriver.Chro
         _terminate_profile_processes(user_data_dir)
         _remove_profile_locks(user_data_dir)
         options = Options()
-        options.add_argument(f"--user-data-dir={user_data_dir}")
-        options.add_argument(f"--profile-directory={profile}")
+        if not HEADLESS_MODE:
+            options.add_argument(f"--user-data-dir={user_data_dir}")
+            options.add_argument(f"--profile-directory={profile}")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--disable-notifications")
