@@ -61,11 +61,17 @@ function renderJobCard(jobKey, job) {
 }
 
 async function requestJson(path, options = {}) {
+  const method = (options.method || "GET").toUpperCase();
+  const requestHeaders = {
+    ...(options.headers || {}),
+  };
+  // Avoid forcing Content-Type on GET/HEAD requests to reduce CORS preflight issues.
+  if (!["GET", "HEAD"].includes(method) && !requestHeaders["Content-Type"]) {
+    requestHeaders["Content-Type"] = "application/json";
+  }
+
   const response = await fetch(`${getApiBaseUrl()}${path}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...(options.headers || {}),
-    },
+    headers: requestHeaders,
     ...options,
   });
 

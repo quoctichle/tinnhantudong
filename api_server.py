@@ -35,10 +35,11 @@ active_job = {"name": None}
 app = FastAPI(title="SunShine Message Control API")
 
 allowed_origins = [origin.strip() for origin in os.getenv("ALLOWED_ORIGINS", "*").split(",") if origin.strip()]
+allow_all_origins = "*" in allowed_origins
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=allowed_origins or ["*"],
-    allow_credentials=True,
+    allow_origins=["*"] if allow_all_origins else (allowed_origins or ["*"]),
+    allow_credentials=not allow_all_origins,
     allow_methods=["*"],
     allow_headers=["*"],
 )
